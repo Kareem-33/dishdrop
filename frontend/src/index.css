@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-page: #fff0e8;
+  --color-card: #ffffff;
+  --color-subtle: #ffd9c8;
+  --color-text-primary: #1a0800;
+  --color-text-secondary: #6b3a2a;
+  --color-accent-primary: #d94010;
+  --color-accent-hover: #e8521a;
+  --color-border-default: #ffb899;
+  --color-dark-bg: #1a0800;
+  --color-dark-text: #fff0e8;
+
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+}
+
+@font-face {
+  font-family: 'Apple Emojis';
+  src: url('/fonts/AppleColorEmoji-Windows.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "DM Sans", sans-serif;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background-color: var(--color-gray-200);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray-400);
+    border-radius: 5px;
+  }
+}
+
+html {
+  background-color: var(--color-page);
+  color: var(--color-text-primary);
+}
+
+.font-heading {
+  font-family: "Bricolage Grotesque", sans-serif !important;
+  font-weight: 800 !important;
+}

@@ -1,0 +1,120 @@
+The following is a digest of the repository "backend".
+This digest is designed to be easily parsed by Large Language Models.
+
+--- SUMMARY ---
+Repository: backend
+Files Analyzed: 14
+Total Text Size: 1.91 KB
+Estimated Tokens (text only): ~814
+
+--- DIRECTORY STRUCTURE ---
+backend/
+├── src/
+│   ├── config/
+│   │   ├── cloudinary.ts [binary]
+│   │   ├── db.ts [binary]
+│   │   ├── google.ts [binary]
+│   │   └── resend.ts [binary]
+│   ├── middleware/
+│   │   └── auth.middleware.ts [binary]
+│   ├── modules/
+│   │   └── user/
+│   │       ├── user.controller.ts [binary]
+│   │       ├── user.model.ts [binary]
+│   │       ├── user.route.ts [binary]
+│   │       └── user.service.ts [binary]
+│   ├── utils/
+│   │   ├── generateJWT.ts [binary]
+│   │   └── sendEmail.ts [binary]
+│   └── server.ts [binary]
+├── package.json
+└── tsconfig.json
+
+
+--- FILE CONTENTS ---
+============================================================
+FILE: package.json
+============================================================
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.10.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "google-auth-library": "^10.6.2",
+    "helmet": "^8.2.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.2",
+    "resend": "^6.12.4"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
+
+
+============================================================
+FILE: tsconfig.json
+============================================================
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    "module": "nodenext",
+    "target": "esnext",
+    "types": [],
+    // For nodejs:
+    // "lib": ["esnext"],
+    // "types": ["node"],
+    // and npm install -D @types/node
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // Recommended Options
+    "strict": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": false,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+  }
+}
