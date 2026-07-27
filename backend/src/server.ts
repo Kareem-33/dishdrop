@@ -30,7 +30,17 @@ app.use('/api/v1/collections', collectionRoutes);
 app.use('/api/v1/saved', savedRoutes);
 
 
-app.listen(PORT, () => {
-  console.log(`Running server on port: http://localhost:${PORT}/api/v1/`);
-  connectDB();
-})
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    app.listen(PORT, () => {
+      console.log(`Running server on port: ${PORT}`);
+    });
+  } catch (err) {
+    console.error("Failed to start server:", err);
+    process.exit(1);
+  }
+};
+
+startServer();
