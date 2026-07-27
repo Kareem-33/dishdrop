@@ -36,7 +36,7 @@ const Select = ({ className, options }: SelectProps) => {
       <HugeiconsIcon icon={ChevronDown} size={22} className={`${openMenu && 'rotate-180'} transition-all duration-300 ease-in-out`}/>
       {openMenu &&
         <div className="absolute min-w-[250px] top-full left-0 bg-card shadow-lg rounded-lg border-border-default border">
-          {options.map((option, index) => (
+          {options.map((option) => (
             <p className="p-3 border-b border-border-default" onClick={() => setSelectedOption(option)}>{option.name}</p>
           ))}
         </div>

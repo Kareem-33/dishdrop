@@ -30,7 +30,6 @@ const RecipeCard = ({
   title,
   time,
   servings,
-  addDate,
   onUnsave,
   deleteBtn=true,
 }: RecipeCardProps) => {

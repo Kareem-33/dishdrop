@@ -22,7 +22,7 @@ const SavedRecipes = () => {
   const [sort, setSort] = useState(searchParams.get("sort") || "recent");
   const [tag, setTag] = useState(searchParams.get("platform") || "all");
   const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
-  const [limit, setLimit] = useState(Number(searchParams.get("limit")) || 9);
+  const [limit] = useState(Number(searchParams.get("limit")) || 9);
 
   useEffect(() => {
     const timer = setTimeout(() => {

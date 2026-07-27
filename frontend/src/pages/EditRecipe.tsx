@@ -22,38 +22,6 @@ import useRecipeStore from "../stores/useRecipeStore";
 import { useParams } from "react-router-dom";
 import useSavedStore from "../stores/useSavedStore";
 
-const ingredientsConst = [
-  {
-    quantity: 4,
-    unit: "tbsp",
-    name: "butter",
-  },
-  {
-    quantity: 6,
-    unit: "cloves",
-    name: "garlic, minced",
-  },
-  {
-    quantity: 2,
-    unit: "cups",
-    name: "heavy cream",
-  },
-  {
-    quantity: 1,
-    unit: "tsp",
-    name: "salt",
-  },
-];
-
-const instructionsConst = [
-  "Bring a large pot of salted water to a boil. Add the pasta and cook according to package directions until al dente. Reserve 1 cup of pasta water before draining.",
-  "While the pasta cooks, melt the butter in a large skillet over medium heat. Add the minced garlic and sauté for 1-2 minutes until fragrant but not browned.",
-  "Pour in the heavy cream and bring to a gentle simmer. Let it cook for 3-4 minutes, stirring occasionally, until the sauce starts to thicken slightly.",
-  "Reduce heat to low and gradually whisk in the parmesan cheese, stirring constantly until the cheese is fully melted and the sauce is smooth and creamy.",
-];
-
-const tagsConst = ["Dinner", "Quick Meals", "Pasta", "Italian"];
-
 const reorder = (list: any, startIndex: number, endIndex: number) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);

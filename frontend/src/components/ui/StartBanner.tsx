@@ -1,6 +1,4 @@
-import React from "react";
 import VideoUrlInput from "./VideoUrlInput";
-
 const StartBanner = () => {
   return (
     <div className="relative overflow-hidden bg-dark-bg px-[20px] py-[80px] md:p-[122px]

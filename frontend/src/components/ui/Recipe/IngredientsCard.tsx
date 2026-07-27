@@ -2,7 +2,6 @@ import {
   CarrotIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useState } from "react";
 import CheckboxItem from "../CheckboxItem";
 import type { IIngredient } from "../../../stores/useRecipeStore";
 
@@ -11,7 +10,6 @@ interface IngredientsCardProps {
 }
 
 const IngredientsCard = ({ ingredients }: IngredientsCardProps) => {
-  const [servings, setServings] = useState(1);
 
   return (
     <div className="bg-card h-fit border-border-default border rounded-lg overflow-hidden shadow">

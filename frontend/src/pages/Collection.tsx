@@ -1,6 +1,4 @@
-import {
-  Bookmark02Icon,
-} from "@hugeicons/core-free-icons";
+import { Bookmark02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import RecipeCard from "../components/ui/SavedRecipes/RecipeCard";

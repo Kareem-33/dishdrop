@@ -24,12 +24,10 @@ const sortOptions = [
 ];
 
 const RecipeSearch = ({
-  setSearchParams,
   search,
   setSearch,
   sort,
   setSort,
-  tag,
   setTag,
 }: any) => {
   const [selectedTag, setSelectedTag] = useState("all");

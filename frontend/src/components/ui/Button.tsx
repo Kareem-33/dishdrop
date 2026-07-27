@@ -20,7 +20,6 @@ const Button = ({
   onClick = () => {},
   children,
   className,
-  loading = false,
   disabled = false,
   type = "button",
 }: ButtonProps) => {

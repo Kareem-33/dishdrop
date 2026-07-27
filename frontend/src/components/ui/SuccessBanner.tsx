@@ -11,7 +11,7 @@ const SuccessBanner = ({time}: SuccessBannerProps) => {
       <HugeiconsIcon icon={CheckmarkCircle02Icon} size={42} className='text-white fill-success'/>
       <div className='text-[#17823E]'>
         <p className='font-bold'>Recipe extracted successfully!</p>
-        <p className='text-sm opacity-75'>Analyzed in 6.2 seconds using AI</p>
+        <p className='text-sm opacity-75'>Analyzed in {time} seconds using AI</p>
       </div>
     </div>
   )

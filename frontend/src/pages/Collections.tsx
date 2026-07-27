@@ -1,9 +1,7 @@
 import { HugeiconsIcon } from "@hugeicons/react";
-import React, { useEffect, useState } from "react";
-import RecipeSearch from "../components/ui/SavedRecipes/RecipeSearch";
-import { Folder02Icon, Plus } from "@hugeicons/core-free-icons";
+import { useEffect, useState } from "react";
+import { Plus } from "@hugeicons/core-free-icons";
 import Button from "../components/ui/Button";
-import CollectionSearch from "../components/ui/Collections/CollectionSearch";
 import CollectionCard from "../components/ui/Collections/CollectionCard";
 import NewCollectionModal from "../components/ui/Collections/NewCollectionModal";
 import useCollectionStore from "../stores/useCollectionStore";
