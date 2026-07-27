@@ -17,7 +17,6 @@ import {
   PuzzleIcon,
   Share01Icon,
   UserGroupIcon,
-  X,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Tag from "../components/ui/Tag";

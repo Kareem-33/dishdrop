@@ -32,7 +32,7 @@ const reorder = (list: any, startIndex: number, endIndex: number) => {
 
 const EditRecipe = () => {
   const { id: recipeId } = useParams();
-  const { recipe, getRecipe } = useRecipeStore();
+  const { recipe } = useRecipeStore();
   if (!recipe || !recipeId) return <div>Loading...</div>;
   const { updateSavedRecipe } = useSavedStore();
   const [title, setTitle] = useState(recipe.title);
@@ -174,7 +174,7 @@ const EditRecipe = () => {
           <div>
             <DragDropContext onDragEnd={onDragEndIng}>
               <Droppable droppableId="list">
-                {(provided, snapshot) => (
+                {(provided) => (
                   <div
                     {...provided.droppableProps}
                     ref={provided.innerRef}
@@ -280,7 +280,7 @@ const EditRecipe = () => {
           <div>
             <DragDropContext onDragEnd={onDragEndIns}>
               <Droppable droppableId="list">
-                {(provided, snapshot) => (
+                {(provided) => (
                   <div {...provided.droppableProps} ref={provided.innerRef}>
                     {instructions.map((instruction, index) => (
                       <Draggable

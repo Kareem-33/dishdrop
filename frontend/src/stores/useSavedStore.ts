@@ -18,7 +18,7 @@ interface SavedStore {
   savedRecipeInCollectionStatus: ({ recipeId, collectionId }: { recipeId: string, collectionId: string }) => Promise<any>;
 }
 
-const useSavedStore = create<SavedStore>((set, get) => ({
+const useSavedStore = create<SavedStore>((set) => ({
   recipes: [],
   count: 0,
   pages: 0,
