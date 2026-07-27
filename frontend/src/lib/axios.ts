@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:2525/api/v1/";
+const API_URL = import.meta.env.VITE_API_URL || "https://dishdrop-api.vercel.app/";
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
