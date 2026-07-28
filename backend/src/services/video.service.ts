@@ -1,9 +1,6 @@
-import path from "path";
 import YTDlpWrap from "yt-dlp-wrap";
 
-const ytDlpPath = path.join(process.cwd(), "bin", "yt-dlp_linux");
-
-const ytDlp = new YTDlpWrap(ytDlpPath);
+const ytDlp = new YTDlpWrap();
 
 export async function getVideoDetails(videoUrl: string) {
   try {
