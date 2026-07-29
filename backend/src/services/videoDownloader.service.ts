@@ -2,10 +2,12 @@ import youtubedl from "youtube-dl-exec";
 import { randomUUID } from "crypto";
 import path from "path";
 import fs from "fs";
+import os from "os";
 
 export const downloadVideo = async (url: string): Promise<string> => {
   // const tempDir = path.resolve("temp");
-  const tempDir = path.join(process.cwd(), "temp");
+  // const tempDir = path.join(process.cwd(), "temp");
+  const tempDir = path.join(os.tmpdir(), "dishdrop");
 
   if (!fs.existsSync(tempDir)) {
     fs.mkdirSync(tempDir, { recursive: true, });
