@@ -10,6 +10,11 @@ export const extractRecipeFromUrl = async (url: string): Promise<RecipeAnalysisR
 
   try {
     if (isYoutube(url)) {
+      //fix https://www.youtube.com/watch?v=EKH1f-cu2dA&pp=ygUHY29va2luZw%3D%3D
+      if (url.includes("&")) {
+        const resultUrl = url.split("&")[0];
+        return await extractRecipeFromFileUri(resultUrl || url);
+      }
       return await extractRecipeFromFileUri(url);
     }
 

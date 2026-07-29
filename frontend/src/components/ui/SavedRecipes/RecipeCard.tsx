@@ -56,7 +56,7 @@ const RecipeCard = ({
         </div>
       )}
       <img
-        src={imageUrl}
+        src={imageUrl || "/cooking_placeholder.png"}
         alt={title}
         className="w-full aspect-video"
         onClick={() => navigate(`/r/${recipeId}`)}

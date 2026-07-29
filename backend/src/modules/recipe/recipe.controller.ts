@@ -8,6 +8,61 @@ import SavedRecipe from "../saved/saved.model";
 import { ExtendedRequest } from "../../middleware/auth.middleware";
 import { Types } from "mongoose";
 
+export function getYoutubeVideoId(url: string): string | null {
+  try {
+    const parsed = new URL(url);
+
+    // youtube.com/watch?v=...
+    const v = parsed.searchParams.get("v");
+    if (v) return v;
+
+    // youtu.be/...
+    if (parsed.hostname === "youtu.be") {
+      return parsed.pathname.slice(1);
+    }
+
+    // youtube.com/shorts/...
+    if (parsed.pathname.startsWith("/shorts/")) {
+      return parsed.pathname.split("/")[2] || null;
+    }
+
+    // youtube.com/embed/...
+    if (parsed.pathname.startsWith("/embed/")) {
+      return parsed.pathname.split("/")[2] || null;
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+export function getPlatform(url: string) {
+  try {
+    const hostname = new URL(url).hostname.replace("www.", "").toLowerCase();
+
+    if (hostname.includes("youtube.com") || hostname.includes("youtu.be")) {
+      return "youtube";
+    }
+
+    if (hostname.includes("tiktok.com")) {
+      return "tiktok";
+    }
+
+    if (hostname.includes("instagram.com")) {
+      return "instagram";
+    }
+
+    if (hostname.includes("facebook.com") || hostname.includes("fb.watch")) {
+      return "facebook";
+    }
+
+    return "unknown";
+  } catch {
+    return "invalid";
+  }
+}
+
 export const analyzeRecipe = async (req: Request, res: Response) => {
   try {
     const { videoLink } = req.body || {};
@@ -16,7 +71,9 @@ export const analyzeRecipe = async (req: Request, res: Response) => {
     }
 
     const recipeDetails = await extractRecipeFromUrl(videoLink);
-    const videoDetails = await getVideoDetails(videoLink);
+
+    // const videoDetails = await getVideoDetails(videoLink); // getting video details using yt-dlp
+
     // const recipeDetails = await extractRecipeFromVideoLink(videoLink);
     // const recipe = await extractRecipeFromVideoLink2(videoLink);
     // const recipeDetails = await analyzeRecipeService(videoLink);
@@ -31,7 +88,14 @@ export const analyzeRecipe = async (req: Request, res: Response) => {
       });
     }
 
-    const recipe = await Recipe.create({ ...recipeDetails.recipe, source: videoDetails });
+    const recipe = await Recipe.create({
+      ...recipeDetails.recipe,
+      source: {
+        videoUrl: videoLink,
+        platform: getPlatform(videoLink),
+        thumbnail: getPlatform(videoLink) === "youtube" ? `https://i.ytimg.com/vi/${getYoutubeVideoId(videoLink)}/maxresdefault.jpg` : "",
+      }
+    });
 
     return res.json({
       success: true,
