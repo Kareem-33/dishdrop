@@ -30,11 +30,13 @@ import useRecipeStore from "../stores/useRecipeStore";
 import useSavedStore from "../stores/useSavedStore";
 import toast from "react-hot-toast";
 import useCollectionStore from "../stores/useCollectionStore";
+import NotFound from "./NotFound";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const Recipe = () => {
   const navigate = useNavigate();
   const { id: recipeId } = useParams<{ id: string }>();
-  const { recipe, getRecipe, saveRecipe } = useRecipeStore();
+  const { loading, recipe, getRecipe, saveRecipe } = useRecipeStore();
   const { recipes, fetchSavedRecipes, unsaveRecipe } = useSavedStore();
   const {
     collections,
@@ -142,12 +144,11 @@ const Recipe = () => {
     [recipeId, saved, removeRecipeFromCollection, unsaveRecipe],
   );
 
-  if (!recipe) {
-    return (
-      <div className="pt-[80px] px-[20px] md:px-[122px] py-[40px]">
-        <p>Loading recipe…</p>
-      </div>
-    );
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+  if(!recipe) {
+    return <NotFound />;
   }
 
   const platformDetails =

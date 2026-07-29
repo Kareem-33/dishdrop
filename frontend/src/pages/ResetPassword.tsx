@@ -5,6 +5,7 @@ import Button from "../components/ui/Button";
 import useAuthStore from "../stores/useAuthStore";
 import toast from "react-hot-toast";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
@@ -13,7 +14,7 @@ const ResetPassword = () => {
 
   const navigate = useNavigate();
 
-  const { resetPassword } = useAuthStore();
+  const { loading, resetPassword } = useAuthStore();
 
   const handleSubmit = () => {
     if (newPassword !== confirmPassword) {
@@ -36,6 +37,10 @@ const ResetPassword = () => {
   }, []);
 
   document.title = `Reset password | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+
+    if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="pt-[80px]">

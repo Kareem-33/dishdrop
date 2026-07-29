@@ -10,12 +10,13 @@ import useCollectionStore from "../stores/useCollectionStore";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../components/ui/Button";
 import NewCollectionModal from "../components/ui/Collections/NewCollectionModal";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
+import NotFound from "./NotFound";
 
 const Collection = () => {
   const collectionId = useParams().id;
   const { loading, collection, getCollectionData, deleteCollection } =
     useCollectionStore();
-  const [showLoading, setShowLoading] = useState(loading);
   const [showNewRecipeModal, setShowNewRecipeModal] = useState(false);
 
   const navigate = useNavigate();
@@ -28,23 +29,11 @@ const Collection = () => {
     fetch();
   }, []);
 
-  useEffect(() => {
-    if (!loading) {
-      const timer = setTimeout(() => {
-        setShowLoading(false);
-      }, 500);
-
-      return () => clearTimeout(timer);
-    }
-
-    setShowLoading(true);
-  }, [loading]);
-  if (showLoading) {
-    return (
-      <div className="py-[160px]">
-        <div className="mx-auto animate-[spin_1s_linear_infinite] w-[50px] aspect-square rounded-full border-4 border-t-transparent border-accent-primary" />
-      </div>
-    );
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+  if(!collection) {
+    return <NotFound />;
   }
 
   document.title = `${collection?.name} | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;

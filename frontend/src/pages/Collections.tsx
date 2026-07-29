@@ -5,9 +5,10 @@ import Button from "../components/ui/Button";
 import CollectionCard from "../components/ui/Collections/CollectionCard";
 import NewCollectionModal from "../components/ui/Collections/NewCollectionModal";
 import useCollectionStore from "../stores/useCollectionStore";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const Collections = () => {
-  const { collections, getCollections } = useCollectionStore();
+  const { loading, collections, getCollections } = useCollectionStore();
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -16,9 +17,13 @@ const Collections = () => {
 
   useEffect(() => {
     getCollections();
-  }, [])
+  }, []);
 
-    document.title = `Collections | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+  document.title = `Collections | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="pt-[80px]">

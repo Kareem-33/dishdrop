@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { ExtendedRequest } from "../../middleware/auth.middleware";
 import Collection from "./collection.model";
 import SavedRecipe from "../saved/saved.model";
+import mongoose, { ObjectId } from "mongoose";
 
 export const getCollections = async (req: ExtendedRequest, res: Response) => {
   try {
@@ -63,6 +64,9 @@ export const getCollectionData = async (req: ExtendedRequest, res: Response) => 
 
     if (!userId || !collectionId) {
       return res.status(400).json({ success: false, message: 'Missing user ID or collection ID' });
+    }
+    if (!mongoose.isValidObjectId(collectionId)) {
+      return res.status(400).json({ success: false, message: 'Invalid collection ID', data: {} });
     }
     const collection = await Collection.findOne({ _id: collectionId, userId });
     if (!collection) {

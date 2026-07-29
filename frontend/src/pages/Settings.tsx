@@ -7,9 +7,11 @@ import Input from "../components/ui/Input";
 import useAuthStore from "../stores/useAuthStore";
 import toast from "react-hot-toast";
 import DeleteAccountModal from "../components/ui/Settings/DeleteAccountModal";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const Settings = () => {
   const {
+    loading,
     user,
     updateNameEmailAvatar,
     updatePassword,
@@ -82,6 +84,10 @@ const Settings = () => {
   };
 
   document.title = `Settings | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="pt-[80px]">

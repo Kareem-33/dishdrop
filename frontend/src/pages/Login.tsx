@@ -4,11 +4,12 @@ import Input from "../components/ui/Input";
 import { Link } from "react-router-dom";
 import useAuthStore from "../stores/useAuthStore";
 import toast from "react-hot-toast";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const { login, sendResetPasswordEmail } = useAuthStore();
+  const { loading, login, sendResetPasswordEmail } = useAuthStore();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,6 +18,10 @@ const Login = () => {
   };
 
   document.title = `Log in | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="pt-[80px]">

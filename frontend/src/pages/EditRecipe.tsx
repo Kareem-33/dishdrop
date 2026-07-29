@@ -6,6 +6,7 @@ import {
   InformationCircleIcon,
   Plus,
   SaveIcon,
+  Select,
   TagsIcon,
   Trash2,
   X,
@@ -14,13 +15,14 @@ import EditCard from "../components/ui/EditRecipe/EditCard";
 import Input from "../components/ui/Input";
 import Textarea from "../components/ui/Textarea";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Button from "../components/ui/Button";
 import Tag from "../components/ui/Tag";
 import useRecipeStore from "../stores/useRecipeStore";
 import { useParams } from "react-router-dom";
 import useSavedStore from "../stores/useSavedStore";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const reorder = (list: any, startIndex: number, endIndex: number) => {
   const result = Array.from(list);
@@ -32,17 +34,45 @@ const reorder = (list: any, startIndex: number, endIndex: number) => {
 
 const EditRecipe = () => {
   const { id: recipeId } = useParams();
-  const { recipe } = useRecipeStore();
-  if (!recipe || !recipeId) return <div>Loading...</div>;
+  const { loading, recipe, getRecipe } = useRecipeStore();
   const { updateSavedRecipe } = useSavedStore();
-  const [title, setTitle] = useState(recipe.title);
-  const [description, setDescription] = useState(recipe.description);
-  const [servings, setServings] = useState(recipe.servings);
-  const [estimatedTime, setEstimatedTime] = useState(recipe.estimatedTime);
-  const [ingredients, setIngredients] = useState(recipe.ingredients);
-  const [instructions, setInstructions] = useState(recipe.steps);
-  const [tags, setTags] = useState(recipe.tags);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [servings, setServings] = useState(0);
+  const [estimatedTime, setEstimatedTime] = useState(0);
+  const [difficulty, setDifficulty] = useState("Easy");
+  const [calories, setCalories] = useState(0);
+  const [cost, setCost] = useState(0);
+  const [ingredients, setIngredients] = useState<any[]>([]);
+  const [instructions, setInstructions] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
+
+  useEffect(() => {
+    if (recipeId) {
+      getRecipe(recipeId);
+    }
+  }, [recipeId, getRecipe]);
+
+  useEffect(() => {
+    if (!recipe) return;
+
+    setTitle(recipe.title);
+    setDescription(recipe.description || "");
+    setServings(recipe.servings);
+    setEstimatedTime(recipe.estimatedTime);
+    setDifficulty(recipe.difficulty);
+    setCalories(Number(recipe.estimatedCalories.split(" ")[0]));
+    setCost(Number(recipe.estimatedCost.split("$")[1]));
+    setIngredients(recipe.ingredients);
+    setInstructions(recipe.steps);
+    setTags(recipe.tags);
+  }, [recipe]);
+
+  if (!recipe || !recipeId) {
+    return <div>Loading...</div>;
+  }
 
   const onDragEndIng = (result: any) => {
     if (!result.destination) return;
@@ -107,6 +137,9 @@ const EditRecipe = () => {
         description,
         servings,
         estimatedTime,
+        difficulty,
+        estimatedCalories: calories + " kcal",
+        estimatedCost: cost + " $",
         ingredients,
         steps: instructions,
         tags,
@@ -116,7 +149,11 @@ const EditRecipe = () => {
     window.location.href = `/r/${recipeId}`;
   };
 
-    document.title = `Edit Recipe | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+  document.title = `Edit Recipe | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+
+    if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="pt-[80px]">
@@ -152,6 +189,34 @@ const EditRecipe = () => {
               className="flex-1"
               value={estimatedTime}
               onChange={(e) => setEstimatedTime(Number(e.target.value))}
+            />
+          </div>
+          <label className="flex flex-col gap-[5px]">
+            <span className="text-sm font-bold">Difficulty</span>
+            <select
+              value={difficulty}
+              onChange={(e) => setDifficulty(e.target.value)}
+              className="w-full py-[10px] px-[15px] border border-border-default rounded-lg bg-page/50"
+            >
+              <option value="easy">easy</option>
+              <option value="medium">medium</option>
+              <option value="hard">hard</option>
+            </select>
+          </label>
+          <div className="flex gap-[20px]">
+            <Input
+              label="Calories (kcal)"
+              type="number"
+              className="flex-1"
+              value={calories}
+              onChange={(e) => setCalories(Number(e.target.value))}
+            />
+            <Input
+              label="Cost (USD)"
+              type="number"
+              className="flex-1"
+              value={cost}
+              onChange={(e) => setCost(Number(e.target.value))}
             />
           </div>
         </EditCard>

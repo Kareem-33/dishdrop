@@ -18,6 +18,7 @@ import EmailVerified from "./pages/EmailVerified";
 import useAuthStore from "./stores/useAuthStore";
 import RecipeAnalyze from "./pages/RecipeAnalyze";
 import Collection from "./pages/Collection";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const { user, checkAuth, checkingAuth } = useAuthStore();
@@ -67,7 +68,7 @@ function App() {
           }
         />
         <Route path="/reset-password" element={<ResetPassword />} />
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
+        <Route path="*" element={<NotFound/>} />
       </Routes>
       <Footer />
     </div>

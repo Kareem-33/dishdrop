@@ -98,7 +98,7 @@ const useCollectionStore = create<CollectionState>((set, get) => ({
       }
       set({ collection: response.data.data });
     } catch (error: any) {
-      set({ error: error.response?.data.message });
+      set({ error: error.response?.data.message, collection: null });
       toast.error(error.response?.data.message || "An error occurred");
     } finally {
       set({ loading: false });

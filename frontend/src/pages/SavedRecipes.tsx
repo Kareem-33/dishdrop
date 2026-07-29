@@ -6,9 +6,11 @@ import Paging from "../components/ui/Paging";
 import useSavedStore from "../stores/useSavedStore";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const SavedRecipes = () => {
   const {
+    loading,
     recipes,
     count,
     pages,
@@ -65,6 +67,10 @@ const SavedRecipes = () => {
   }, []);
 
   document.title = `Saved Recipes | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="pt-[80px]">
