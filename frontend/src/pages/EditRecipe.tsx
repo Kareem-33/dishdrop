@@ -6,7 +6,6 @@ import {
   InformationCircleIcon,
   Plus,
   SaveIcon,
-  Select,
   TagsIcon,
   Trash2,
   X,
