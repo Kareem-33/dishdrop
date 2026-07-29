@@ -63,6 +63,9 @@ const SavedRecipes = () => {
   useEffect(() => {
     savedRecipesCount();
   }, []);
+
+  document.title = `Saved Recipes | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+
   return (
     <div className="pt-[80px]">
       <div className="px-[20px] py-[40px] md:px-[122px] space-y-[35px] border-b border-border-default">

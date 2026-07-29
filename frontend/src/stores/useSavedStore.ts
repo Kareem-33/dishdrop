@@ -12,7 +12,7 @@ interface SavedStore {
   loading: boolean;
 
   fetchSavedRecipes: ({ page, limit, search, sort, platform }: { page?: number, limit?: number, search?: string, sort?: string, platform?: string }) => void;
-  unsaveRecipe: ({ id, recipeId }: { id: string, recipeId: string }) => Promise<boolean>;
+  unsaveRecipe: ({ recipeId }: { recipeId: string }) => Promise<boolean>;
   savedRecipesCount: () => void;
   updateSavedRecipe: ({ recipeId, updateData }: { recipeId: string, updateData: Partial<IRecipe> }) => Promise<string>;
   savedRecipeInCollectionStatus: ({ recipeId, collectionId }: { recipeId: string, collectionId: string }) => Promise<any>;
@@ -42,13 +42,13 @@ const useSavedStore = create<SavedStore>((set) => ({
     }
   },
 
-  unsaveRecipe: async ({ id, recipeId }) => {
+  unsaveRecipe: async ({ recipeId }) => {
     set({ loading: true });
     try {
-      const response = await axios.delete(`/saved/${id}`, { data: { recipeId } });
+      const response = await axios.delete(`/saved/${recipeId}`);
       set((prev) => {
         return {
-          recipes: prev.recipes.filter((r) => r._id !== id),
+          recipes: prev.recipes.filter((r) => r._id !== recipeId),
           count: Math.max(0, prev.count - 1),
           totalSaved: Math.max(0, (prev.totalSaved || 0) - 1),
         };
@@ -68,7 +68,6 @@ const useSavedStore = create<SavedStore>((set) => ({
     set({ loading: true });
     try {
       const response = await axios.get('/saved');
-      console.log(response.data);
       return set({ totalSaved: response.data.data.totalRecipes });
     } catch (error: any) {
       return toast.error(error.response?.data.message || "An error occurred");

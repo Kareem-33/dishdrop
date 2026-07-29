@@ -89,8 +89,9 @@ const Recipe = () => {
     if (!recipe) return;
     try {
       if (saved) {
-        await unsaveRecipe({ id: recipe._id, recipeId: recipe._id });
+        await unsaveRecipe({ recipeId: recipe._id });
         setSaved(false);
+        getCollections();
       } else {
         await saveRecipe(recipe._id);
         setSaved(true);
@@ -153,6 +154,8 @@ const Recipe = () => {
     platforms.find(
       (p) => p.name.toLowerCase() === recipe.source?.platform?.toLowerCase(),
     ) ?? platforms[0];
+
+  document.title = `${recipe.title} | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
 
   return (
     <div className="pt-[80px]">
@@ -285,7 +288,8 @@ const Recipe = () => {
               }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-5
-              rounded-md w-[500px] divide-y divide-border-default max-h-[80%] overflow-auto"
+              rounded-md w-[500px] divide-y divide-border-default overflow-auto w-[90%] md:w-[400px]
+              max-h-[calc(100vh-125px)]"
             >
               {collections.length > 0 ? (
                 collections.map((collection) => {
@@ -310,7 +314,11 @@ const Recipe = () => {
                           }
                           size="sm"
                         >
-                          <HugeiconsIcon icon={CheckIcon} size={15} strokeWidth={2.5} />
+                          <HugeiconsIcon
+                            icon={CheckIcon}
+                            size={15}
+                            strokeWidth={2.5}
+                          />
                         </Button>
                       ) : (
                         <Button

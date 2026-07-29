@@ -4,6 +4,7 @@ import HowItWorks from '../components/sections/home/HowItWorks'
 import StartBanner from '../components/ui/StartBanner'
 
 const Home = () => {
+  
   return (
     <div className="pt-[80px]">
       <Hero />

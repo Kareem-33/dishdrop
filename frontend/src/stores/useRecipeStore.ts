@@ -55,7 +55,6 @@ const useRecipeStore = create<IRecipeStore>((set) => ({
     set({ loading: true });
     try {
       const response = await axios.get(`/recipes/${recipeId}`);
-      console.log(response || "No response");
       return set({ recipe: response.data.data });
     } catch (error: any) {
       return toast.error(error.response?.data.message || "An error occurred");
@@ -68,7 +67,6 @@ const useRecipeStore = create<IRecipeStore>((set) => ({
     set({ loading: true });
     try {
       const response = await axios.post("/recipes/analyze", { videoLink });
-      console.log(response.data.data.recipe._id || "No response");
       return set({ recipe: response.data.data.recipe, analyzedId: response.data.data.recipe._id });
     } catch (error: any) {
       return toast.error(error.response?.data.message || "An error occurred");

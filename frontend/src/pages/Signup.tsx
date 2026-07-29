@@ -19,19 +19,20 @@ const Signup = () => {
     if (password !== confirmPassword) {
       return toast.error("Passwords do not match");
     }
-    if(!email || !password) {
+    if (!email || !password) {
       return toast.error("Missing required fields");
     }
     if (password.length < 6) {
       return toast.error("Password must be at least 6 characters long");
     }
-    if( !email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
       return toast.error("Invalid email format");
     }
 
-
     signup({ name, email, password, confirmPassword });
   };
+
+  document.title = `Sign up | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
 
   return (
     <div className="pt-[80px]">

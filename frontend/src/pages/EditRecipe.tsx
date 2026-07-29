@@ -99,11 +99,6 @@ const EditRecipe = () => {
     );
   };
 
-  useEffect(() => {
-    console.log("recipeId: ", recipeId);
-    console.log("recipe: ", recipe);
-  }, []);
-
   const handleSave = async () => {
     await updateSavedRecipe({
       recipeId: recipeId,
@@ -120,6 +115,8 @@ const EditRecipe = () => {
 
     window.location.href = `/r/${recipeId}`;
   };
+
+    document.title = `Edit Recipe | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
 
   return (
     <div className="pt-[80px]">

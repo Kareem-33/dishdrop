@@ -26,6 +26,7 @@ interface CollectionState {
   getCollections: () => Promise<void>;
   deleteCollection: (id: string) => Promise<void>;
   getCollectionData: (id: string) => Promise<void>;
+  updateCollection: (data: any) => Promise<void>;
 
   addRecipeToCollection: ({ collectionId, recipeId }: { collectionId: string, recipeId: string }) => Promise<void>;
   removeRecipeFromCollection: ({ collectionId, recipeId }: { collectionId: string, recipeId: string }) => Promise<void>;
@@ -61,9 +62,7 @@ const useCollectionStore = create<CollectionState>((set, get) => ({
         set({ error: response.data.message });
         throw new Error(response.data.message);
       }
-      console.log("collections response: ", response.data);
       set({ collections: response.data.data });
-      toast.success(response.data.message);
     } catch (error: any) {
       set({ error: error.response?.data.message });
       toast.error(error.response?.data.message || "An error occurred");
@@ -97,8 +96,24 @@ const useCollectionStore = create<CollectionState>((set, get) => ({
         set({ error: response.data.message });
         throw new Error(response.data.message);
       }
-      console.log("collection response: ", response.data.data);
       set({ collection: response.data.data });
+    } catch (error: any) {
+      set({ error: error.response?.data.message });
+      toast.error(error.response?.data.message || "An error occurred");
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  updateCollection: async ({ _id, name, description, icon, color }) => {
+    try {
+      set({ loading: true });
+      const response = await axios.put(`/collections/${_id}`, { name, description, icon, color });
+      if (response.status !== 200) {
+        set({ error: response.data.message });
+        throw new Error(response.data.message);
+      }
+      toast.success(response.data.message);
     } catch (error: any) {
       set({ error: error.response?.data.message });
       toast.error(error.response?.data.message || "An error occurred");

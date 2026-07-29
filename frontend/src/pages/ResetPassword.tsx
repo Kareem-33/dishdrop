@@ -34,6 +34,9 @@ const ResetPassword = () => {
       navigate("/");
     }
   }, []);
+
+  document.title = `Reset password | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+
   return (
     <div className="pt-[80px]">
       <div className="px-[20px] py-[40px] space-y-[35px] md:px-[365px]">

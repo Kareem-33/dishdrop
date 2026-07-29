@@ -2,6 +2,9 @@ import { BadgeIcon, Check } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
 const EmailVerified = () => {
+
+    document.title = `Email verified | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+
   return (
     <div className="pt-[80px]">
       <div className="px-[20px] py-[40px]">

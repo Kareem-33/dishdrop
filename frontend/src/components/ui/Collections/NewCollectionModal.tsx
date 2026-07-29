@@ -53,16 +53,20 @@ const colors = [
 ];
 
 const NewCollectionModal = ({
+  data,
   setShowModal,
+  type="create"
 }: {
+  data?: any;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  type?: "create" | "edit";
 }) => {
-  const [selectedIcon, setSelectedIcon] = useState(icons[0]);
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [selectedIcon, setSelectedIcon] = useState(data?.icon || icons[0]);
+  const [selectedColor, setSelectedColor] = useState(data?.color || colors[0]);
+  const [name, setName] = useState(data?.name || "");
+  const [description, setDescription] = useState(data?.description || "");
 
-  const { error, createCollection } = useCollectionStore();
+  const { error, createCollection, updateCollection, getCollectionData } = useCollectionStore();
 
   const handleCreateCollection = async () => {
     await createCollection({
@@ -75,6 +79,20 @@ const NewCollectionModal = ({
       // setShowModal(false);
     }
   };
+
+  const handleEditCollection = async () => {
+    await updateCollection({
+      _id: data._id,
+      name,
+      description,
+      icon: selectedIcon,
+      color: selectedColor,
+    });
+    if (!error) {
+      setShowModal(false);
+    }
+    getCollectionData(data._id);
+  }
 
   return (
     <div>
@@ -156,9 +174,9 @@ const NewCollectionModal = ({
             <Button
               variant="primary"
               className="flex-1"
-              onClick={handleCreateCollection}
+              onClick={type === "edit" ? handleEditCollection : handleCreateCollection}
             >
-              Create collection
+              {type === "edit" ? "Update collection" : "Create collection"}
             </Button>
             <Button variant="secondary" onClick={() => setShowModal(false)}>
               Cancel

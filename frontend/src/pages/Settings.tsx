@@ -35,7 +35,8 @@ const Settings = () => {
   // });
 
   const handleChangeNameEmailAvatar = () => {
-    const changedFields: { name?: string; email?: string; avatar?: string } = {};
+    const changedFields: { name?: string; email?: string; avatar?: string } =
+      {};
     if (name !== user!.name) {
       changedFields.name = name;
     }
@@ -45,7 +46,7 @@ const Settings = () => {
       }
       changedFields.email = email;
     }
-    if(avatar !== user!.avatar) {
+    if (avatar !== user!.avatar) {
       changedFields.avatar = avatar || "empty";
     }
     updateNameEmailAvatar(changedFields);
@@ -78,7 +79,9 @@ const Settings = () => {
       reader.readAsDataURL(file);
     };
     input.click();
-  }
+  };
+
+  document.title = `Settings | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
 
   return (
     <div className="pt-[80px]">
@@ -111,7 +114,11 @@ const Settings = () => {
               </div>
             )}
             <div className="flex items-center gap-[10px] w-full mt-[10px] flex-wrap justify-center">
-              <Button variant="secondary" className="flex-shrink-0" onClick={handleAvatarUpload}>
+              <Button
+                variant="secondary"
+                className="flex-shrink-0"
+                onClick={handleAvatarUpload}
+              >
                 <HugeiconsIcon
                   icon={Upload01FreeIcons}
                   size={20}
@@ -120,7 +127,11 @@ const Settings = () => {
                 Upload picture
               </Button>
               <Input type="file" className="hidden" />
-              <Button variant="ghost" disabled={avatar === undefined} onClick={() => setAvatar(undefined)}>
+              <Button
+                variant="ghost"
+                disabled={avatar === undefined}
+                onClick={() => setAvatar(undefined)}
+              >
                 <HugeiconsIcon icon={Trash2} size={20} strokeWidth={2} />
                 Remove
               </Button>
@@ -155,7 +166,11 @@ const Settings = () => {
             <div className="flex items-center gap-[10px]">
               <Button
                 variant="primary"
-                disabled={name === user!.name && email === user!.email && avatar === user!.avatar}
+                disabled={
+                  name === user!.name &&
+                  email === user!.email &&
+                  avatar === user!.avatar
+                }
                 onClick={handleChangeNameEmailAvatar}
               >
                 Save changes
@@ -203,7 +218,7 @@ const Settings = () => {
               </Button>
               <p
                 className="font-bold text-accent-primary text-sm underline cursor-pointer"
-                onClick={() => sendResetPasswordEmail( user!.email)}
+                onClick={() => sendResetPasswordEmail(user!.email)}
               >
                 Forgot password?
               </p>
@@ -295,7 +310,9 @@ const Settings = () => {
         </SettingCard>
       </div>
 
-      {showDeleteModal && <DeleteAccountModal setShowModal={setShowDeleteModal} />}
+      {showDeleteModal && (
+        <DeleteAccountModal setShowModal={setShowDeleteModal} />
+      )}
     </div>
   );
 };

@@ -87,7 +87,7 @@ export const updateCollection = async (req: ExtendedRequest, res: Response) => {
   try {
     const userId = req.user?._id;
     const collectionId = req.params.id;
-    const { name, description } = req.body || {};
+    const { name, description, icon, color } = req.body || {};
 
     if (!userId || !collectionId) {
       return res.status(400).json({ success: false, message: 'Missing user ID or collection ID' });
@@ -95,7 +95,7 @@ export const updateCollection = async (req: ExtendedRequest, res: Response) => {
 
     const collection = await Collection.findByIdAndUpdate(
       collectionId,
-      { $set: { name, description } },
+      { $set: { name, description, icon, color } },
       { new: true }
     );
     if (!collection) {

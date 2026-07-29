@@ -53,7 +53,7 @@ const useAuthStore = create<AuthState>((set, get) => ({
       const user = response.data.data;
       set({ user: user });
     } catch (error: any) {
-      return toast.error(error.response?.data.message || "An error occurred");
+      return;
     } finally {
       set({ checkingAuth: false });
     }
@@ -70,7 +70,6 @@ const useAuthStore = create<AuthState>((set, get) => ({
       const message = response.data.message;
       const user = response.data.data;
       set({ user: user });
-      console.log(get().user);
       return toast.success(message);
     } catch (error: any) {
       return toast.error(error.response?.data.message || "An error occurred");
@@ -100,7 +99,6 @@ const useAuthStore = create<AuthState>((set, get) => ({
       await axios.post("/users/logout");
       set({ user: null });
     } catch (error: any) {
-      console.error(error);
       return toast.error(error.response?.data.message || "An error occurred");
     } finally {
       set({ loading: false });

@@ -15,6 +15,9 @@ const Login = () => {
     if (!email || !password) return toast.error("Missing required fields");
     login({ email, password });
   };
+
+  document.title = `Log in | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
+
   return (
     <div className="pt-[80px]">
       <div className="px-[20px] py-[40px]">

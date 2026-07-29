@@ -95,7 +95,7 @@ const RecipeCard = ({
           justify-center border border-border-default text-accent-primary transition-all
           duration-300 ease-in-out hover:bg-subtle"
               onClick={async () => {
-                const success = await unsaveRecipe({ id, recipeId });
+                const success = await unsaveRecipe({ recipeId });
                 if (success && onUnsave) onUnsave();
               }}
             >

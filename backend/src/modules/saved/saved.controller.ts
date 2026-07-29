@@ -62,32 +62,75 @@ export const updateSavedRecipe = async (req: ExtendedRequest, res: Response) => 
   }
 }
 
-export const deleteSavedRecipe = async (req: ExtendedRequest, res: Response) => {
+// export const deleteSavedRecipe = async (req: ExtendedRequest, res: Response) => {
+//   try {
+//     const userId = req.user?._id;
+//     const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+//     if (!userId || !id) {
+//       return res.status(400).json({ success: false, message: 'Missing user ID or recipe ID' });
+//     }
+
+//     const query: any = { userId };
+//     if (mongoose.Types.ObjectId.isValid(id)) {
+//     //   query.$or = [{ _id: id }, { recipeId: id }];
+//     // } else {
+//       query.recipeId = id;
+//     }
+
+//     const savedRecipe = await SavedRecipe.deleteMany({
+//       userId,
+//       recipeId: id
+//     });
+//     // if (!savedRecipe) {
+//     //   return res.status(404).json({ success: false, message: 'Saved recipe not found' });
+//     // }
+
+//     return res.json({ success: true, message: 'Saved recipe deleted successfully' });
+//   } catch (error) {
+//     console.error('Error in deleteSavedRecipe controller:', error);
+//     return res.status(500).json({ success: false, message: 'Internal server error' });
+//   }
+// }
+export const deleteSavedRecipe = async (
+  req: ExtendedRequest,
+  res: Response
+) => {
   try {
     const userId = req.user?._id;
-    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    if (!userId || !id) {
-      return res.status(400).json({ success: false, message: 'Missing user ID or recipe ID' });
+    const { id: recipeId } = req.params;
+
+    if (!userId || !recipeId) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing user ID or recipe ID",
+      });
     }
 
-    const query: any = { userId };
-    if (mongoose.Types.ObjectId.isValid(id)) {
-      query.$or = [{ _id: id }, { recipeId: id }];
-    } else {
-      query.recipeId = id;
+    const result = await SavedRecipe.deleteMany({
+      userId,
+      recipeId,
+    });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Saved recipe not found",
+      });
     }
 
-    const savedRecipe = await SavedRecipe.deleteMany(query);
-    if (!savedRecipe) {
-      return res.status(404).json({ success: false, message: 'Saved recipe not found' });
-    }
-
-    return res.json({ success: true, message: 'Saved recipe deleted successfully' });
+    return res.json({
+      success: true,
+      message: "Recipe removed successfully",
+    });
   } catch (error) {
-    console.error('Error in deleteSavedRecipe controller:', error);
-    return res.status(500).json({ success: false, message: 'Internal server error' });
+    console.error("Error in deleteSavedRecipe controller:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
-}
+};
 
 export const getSavedRecipes = async (req: ExtendedRequest, res: Response) => {
   try {
@@ -184,8 +227,6 @@ export const getSavedRecipes = async (req: ExtendedRequest, res: Response) => {
       { $skip: (page - 1) * limit },
       { $limit: limit },
     ]);
-
-    // console.log(recipes);
 
     const totalRecipes = (
       await SavedRecipe.aggregate([
