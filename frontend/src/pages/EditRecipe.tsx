@@ -14,7 +14,7 @@ import EditCard from "../components/ui/EditRecipe/EditCard";
 import Input from "../components/ui/Input";
 import Textarea from "../components/ui/Textarea";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Button from "../components/ui/Button";
 import Tag from "../components/ui/Tag";

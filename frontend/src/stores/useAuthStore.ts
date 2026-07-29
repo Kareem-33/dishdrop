@@ -41,7 +41,7 @@ interface AuthState {
   deleteAccount: (confirm: string) => void;
 }
 
-const useAuthStore = create<AuthState>((set, get) => ({
+const useAuthStore = create<AuthState>((set) => ({
   user: null,
   loading: false,
   checkingAuth: true,

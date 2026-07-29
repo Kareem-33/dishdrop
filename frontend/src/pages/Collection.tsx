@@ -1,7 +1,6 @@
 import {
   Bookmark02Icon,
   PencilEdit02Icon,
-  Plus,
   Trash2,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
