@@ -26,7 +26,7 @@ const cardsData = [
 
 const HowItWorks = () => {
   return (
-    <div className="px-[20px] py-[80px] md:p-[122px]">
+    <div className="px-[20px] py-[80px] md:p-[80px] lg:p-[122px]">
       <div className="flex flex-col items-center text-center gap-[10px] mb-[40px] md:mb-[50px] md:max-w-[620px] mx-auto">
         <Badge>How it works</Badge>
         <h2 className="font-heading text-2xl md:text-4xl">Three steps to cook anything</h2>

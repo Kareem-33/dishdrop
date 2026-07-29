@@ -37,7 +37,7 @@ const cardsData = [
 
 const Features = () => {
   return (
-    <div className="bg-card px-[20px] py-[80px] md:p-[122px]">
+    <div className="bg-card px-[20px] py-[80px] md:p-[80px] lg:p-[122px]">
       <div className="flex flex-col items-center gap-[10px] mb-[40px] max-w-[620px] mx-auto">
         <Badge>Features</Badge>
         <h2 className="font-heading text-2xl md:text-4xl">Everything you need to cook</h2>

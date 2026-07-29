@@ -38,13 +38,13 @@ const ResetPassword = () => {
 
   document.title = `Reset password | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
 
-    if (loading) {
+  if (loading) {
     return <LoadingSpinner />;
   }
 
   return (
     <div className="pt-[80px]">
-      <div className="px-[20px] py-[40px] space-y-[35px] md:px-[365px]">
+      <div className="px-[20px] py-[40px] space-y-[35px] lg:px-[465px] md:px-[100px]">
         <SettingCard title="Reset password">
           <Input
             label="New password"

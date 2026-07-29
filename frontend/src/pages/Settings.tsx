@@ -91,7 +91,7 @@ const Settings = () => {
 
   return (
     <div className="pt-[80px]">
-      <div className="px-[20px] py-[40px] space-y-[35px] md:px-[365px]">
+      <div className="px-[20px] py-[40px] space-y-[35px] md:px[100px] lg:px-[465px]">
         <div className="space-y-[10px]">
           <h1 className="text-3xl md:text-4xl font-black font-heading">
             Settings

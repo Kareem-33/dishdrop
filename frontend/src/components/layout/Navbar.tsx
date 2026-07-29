@@ -3,6 +3,7 @@ import type { IconSvgElement } from "@hugeicons/react";
 import Button from "../ui/Button";
 import {
   AllBookmarkIcon,
+  BugIcon,
   CustomerService01Icon,
   Folder02Icon,
   LoginSquare01Icon,
@@ -63,10 +64,9 @@ const GUEST_ITEMS: MenuItem[] = [
 
 const Navbar = () => {
   const [mobileMenuOpened, setMobileMenuOpened] = useState(false);
-  const {user, logout} = useAuthStore();
+  const { user, logout } = useAuthStore();
   const [userLogged, setUserLogged] = useState(user !== null);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpened ? "hidden" : "auto";
@@ -80,7 +80,7 @@ const Navbar = () => {
       setMobileMenuOpened(false);
       navigate(path);
     },
-    [navigate]
+    [navigate],
   );
 
   const handleLogout = useCallback(() => {
@@ -89,10 +89,10 @@ const Navbar = () => {
     setUserLogged(false);
     navigate("/");
   }, [navigate]);
-  
+
   useEffect(() => {
     setUserLogged(user !== null);
-  }, [user])
+  }, [user]);
 
   const renderMenuGroup = (items: MenuItem[], keyPrefix: string) => (
     <li className="space-y-[25px] rounded-lg p-[15px] bg-accent-primary/12 md:text-sm">
@@ -110,6 +110,18 @@ const Navbar = () => {
           {item.badge !== undefined && <span>{item.badge}</span>}
         </button>
       ))}
+      <a
+        key={`${keyPrefix}-feedback`}
+        type="button"
+        href="https://docs.google.com/forms/d/e/1FAIpQLScUgbZy9BqcN-VD6DgLJdevAB78sqRM54pfsZfsFF9DEgTNhA/viewform?usp=publish-editor"
+        target="_blank"
+        className="w-full flex items-center justify-between gap-[15px] text-left cursor-pointer"
+      >
+        <span className="flex items-center gap-[15px]">
+          <HugeiconsIcon icon={BugIcon} className="w-[22px] md:w-[18px]" />
+          Bugs & Suggestions
+        </span>
+      </a>
     </li>
   );
 
@@ -117,7 +129,7 @@ const Navbar = () => {
     label: string,
     icon: IconSvgElement,
     onClick: () => void,
-    variant: ActionVariant
+    variant: ActionVariant,
   ) => {
     const { card, button } = ACTION_VARIANTS[variant];
     return (
@@ -135,14 +147,18 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed w-full bg-dark-bg border-b border-accent-primary p-5 md:px-[122px] flex justify-between items-center h-[80px] z-[999]">
+    <div className="fixed w-full bg-dark-bg border-b border-accent-primary p-5 md:px-[80px] lg:px-[122px] flex justify-between items-center h-[80px] z-[999]">
       <Link to="/">
         <img src="/logo.svg" alt="Logo" />
       </Link>
 
       <div className="flex gap-[15px] items-center">
         {!userLogged && (
-          <Button variant="secondary" size="md" onClick={() => navigateTo("/login")}>
+          <Button
+            variant="secondary"
+            size="md"
+            onClick={() => navigateTo("/login")}
+          >
             Login
           </Button>
         )}
@@ -184,13 +200,17 @@ const Navbar = () => {
                 onClick={() => navigateTo("/settings")}
                 className="w-full flex items-center gap-[10px] bg-accent-primary/12 hover:bg-accent-primary/15 rounded-lg p-[15px] text-left cursor-pointer"
               >
-                {user?.avatar ?
-                <img src={user.avatar} alt="avatar" className="w-[50px] h-[50px] rounded-full object-cover" />
-                :
-                <span className="rounded-full w-[50px] h-[50px] bg-accent-primary border shrink-0 border-dark-text text-dark-text flex items-center justify-center text-2xl font-extrabold">
-                  {user?.name.charAt(0).toUpperCase()}
-                </span>
-              }
+                {user?.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt="avatar"
+                    className="w-[50px] h-[50px] rounded-full object-cover"
+                  />
+                ) : (
+                  <span className="rounded-full w-[50px] h-[50px] bg-accent-primary border shrink-0 border-dark-text text-dark-text flex items-center justify-center text-2xl font-extrabold">
+                    {user?.name.charAt(0).toUpperCase()}
+                  </span>
+                )}
                 <span>
                   <p className="font-semibold">{user?.name}</p>
                   <p className="text-xs font-normal opacity-60">
@@ -202,14 +222,34 @@ const Navbar = () => {
 
             {renderMenuGroup(ACCOUNT_ITEMS, "account")}
             {renderMenuGroup(SETTINGS_ITEMS, "settings")}
-            {renderActionItem("Logout", LogoutSquare01Icon, handleLogout, "neutral")}
-            {renderActionItem("Drop a video", PlusSignSquareIcon, () => navigateTo("/"), "primary")}
+            {renderActionItem(
+              "Logout",
+              LogoutSquare01Icon,
+              handleLogout,
+              "neutral",
+            )}
+            {renderActionItem(
+              "Drop a video",
+              PlusSignSquareIcon,
+              () => navigateTo("/"),
+              "primary",
+            )}
           </ul>
         ) : (
           <ul className="p-[20px] md:p-[10px] flex flex-col gap-[15px] min-h-full">
             {renderMenuGroup(GUEST_ITEMS, "guest")}
-            {renderActionItem("Login", LoginSquare01Icon, () => navigateTo("/login"), "secondary")}
-            {renderActionItem("Signup", UserAdd01Icon, () => navigateTo("/signup"), "primary")}
+            {renderActionItem(
+              "Login",
+              LoginSquare01Icon,
+              () => navigateTo("/login"),
+              "secondary",
+            )}
+            {renderActionItem(
+              "Signup",
+              UserAdd01Icon,
+              () => navigateTo("/signup"),
+              "primary",
+            )}
           </ul>
         )}
       </motion.div>

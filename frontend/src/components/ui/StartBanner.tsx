@@ -1,7 +1,7 @@
 import VideoUrlInput from "./VideoUrlInput";
 const StartBanner = () => {
   return (
-    <div className="relative overflow-hidden bg-dark-bg px-[20px] py-[80px] md:p-[122px]
+    <div className="relative overflow-hidden bg-dark-bg px-[20px] py-[80px] md:p-[80px] lg:p-[122px]
     flex flex-col gap-[40px] bg-[url('/dot.svg')] bg-top-left">
       <div className="blur-[75px] md:blur-[150px] opacity-75 md:opacity-50 w-[150px] aspect-square md:w-[300px] rounded-full bg-accent-primary absolute top-[-50px] left-[-20px] z-0" />
       <div className="blur-[75px] md:blur-[150px] opacity-75 md:opacity-50 w-[150px] aspect-square md:w-[300px] rounded-full bg-accent-primary absolute bottom-[-50px] right-[-75px] z-0" />

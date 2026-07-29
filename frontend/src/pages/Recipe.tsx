@@ -160,7 +160,7 @@ const Recipe = () => {
 
   return (
     <div className="pt-[80px]">
-      <div className="py-[40px] px-[20px] md:px-[122px] border-b border-accent-primary/50">
+      <div className="py-[40px] px-[20px] md:px-[80px] lg:px-[122px] border-b border-accent-primary/50">
         <div className="flex items-center gap-[10px] py-[30px]">
           <SocialMediaBadge
             name={platformDetails.name}

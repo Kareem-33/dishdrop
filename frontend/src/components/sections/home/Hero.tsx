@@ -5,7 +5,7 @@ import VideoUrlInput from "../../ui/VideoUrlInput";
 
 const Hero = () => {
   return (
-    <div className="relative px-[20px] md:p-[122px] h-[calc(100vh-80px)] flex flex-col items-center justify-center">
+    <div className="relative px-[20px] md:p-[80px] lg:p-[122px] h-[calc(100vh-80px)] flex flex-col items-center justify-center">
       <div>
         <img
           src="./ingredients_card.svg"
@@ -35,7 +35,7 @@ const Hero = () => {
           ingredient list and step-by-step instructions in seconds.
         </p>
       </div>
-      <VideoUrlInput className="md:w-[800px]" />
+      <VideoUrlInput className="md:w-[800px] z-9" />
     </div>
   );
 };

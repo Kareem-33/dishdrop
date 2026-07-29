@@ -27,7 +27,7 @@ const Collections = () => {
 
   return (
     <div className="pt-[80px]">
-      <div className="px-[20px] py-[40px] md:px-[122px] space-y-[35px] border-b border-border-default">
+      <div className="px-[20px] py-[40px] md:px-[80px] lg:px-[122px] space-y-[35px] border-b border-border-default">
         <div className="space-y-[10px]">
           <h1 className="text-4xl font-black font-heading">Collections</h1>
           <p className="opacity-60">

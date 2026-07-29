@@ -157,7 +157,7 @@ const EditRecipe = () => {
 
   return (
     <div className="pt-[80px]">
-      <div className="py-[40px] md:px-[465px] px-[20px] space-y-[35px]">
+      <div className="py-[40px] md:px-[100px] lg:px-[465px] px-[20px] space-y-[35px]">
         <div className="space-y-[10px]">
           <h1 className="text-4xl font-black font-heading">Edit Recipe</h1>
           <p className="opacity-60">
