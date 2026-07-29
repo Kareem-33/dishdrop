@@ -129,11 +129,13 @@ export const login = async (req: Request, res: Response) => {
 
 export const logout = async (req: ExtendedRequest, res: Response) => {
   try {
-    res.clearCookie('token', {
+    const isProduction = process.env.NODE_ENV === "production";
+    res.clearCookie("token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-    })
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     return res.status(200).json({
       success: true,
@@ -199,7 +201,7 @@ export const editProfile = async (req: ExtendedRequest, res: Response) => {
       });
       updateData.avatar = uploadResponse.secure_url;
     }
-    if(avatar == "empty") {
+    if (avatar == "empty") {
       updateData.avatar = "";
     }
 

@@ -92,11 +92,12 @@ const Recipe = () => {
     try {
       if (saved) {
         await unsaveRecipe({ recipeId: recipe._id });
-        setSaved(false);
+        getRecipe(recipe._id);
+
         getCollections();
       } else {
         await saveRecipe(recipe._id);
-        setSaved(true);
+        getRecipe(recipe._id);
       }
     } catch {
       toast.error(saved ? "Failed to unsave recipe" : "Failed to save recipe");
@@ -147,7 +148,7 @@ const Recipe = () => {
   if (loading) {
     return <LoadingSpinner />;
   }
-  if(!recipe) {
+  if (!recipe) {
     return <NotFound />;
   }
 

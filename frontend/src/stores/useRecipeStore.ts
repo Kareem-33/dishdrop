@@ -81,6 +81,7 @@ const useRecipeStore = create<IRecipeStore>((set) => ({
       const response = await axios.post(`/recipes/${recipeId}`);
       return toast.success(response.data.message);
     } catch (error: any) {
+      if (error.response?.status === 401) return toast.error('You need to be logged in to save a recipe');
       return toast.error(error.response?.data.message || "An error occurred");
     } finally {
       set({ loading: false });

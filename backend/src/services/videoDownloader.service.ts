@@ -4,7 +4,8 @@ import path from "path";
 import fs from "fs";
 
 export const downloadVideo = async (url: string): Promise<string> => {
-  const tempDir = path.resolve("temp");
+  // const tempDir = path.resolve("temp");
+  const tempDir = path.join(process.cwd(), "temp");
 
   if (!fs.existsSync(tempDir)) {
     fs.mkdirSync(tempDir, { recursive: true, });
