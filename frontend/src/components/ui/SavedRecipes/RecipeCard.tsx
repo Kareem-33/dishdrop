@@ -1,8 +1,4 @@
-import {
-  Clock4Icon,
-  Trash2,
-  UserGroupIcon,
-} from "@hugeicons/core-free-icons";
+import { Clock4Icon, Trash2, UserGroupIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { platforms } from "../VideoUrlInput";
 import SocialMediaBadge from "../SocialMediaBadge";
@@ -31,7 +27,7 @@ const RecipeCard = ({
   time,
   servings,
   onUnsave,
-  deleteBtn=true,
+  deleteBtn = true,
 }: RecipeCardProps) => {
   const { unsaveRecipe } = useSavedStore();
   const navigate = useNavigate();
@@ -63,7 +59,12 @@ const RecipeCard = ({
       />
       <div className="p-[15px] space-y-[10px]">
         <div className="flex items-start gap-[10px] justify-between">
-          <h3 className="text-lg font-bold flex-1">{title}</h3>
+          <h3
+            className="text-lg font-bold flex-1"
+            onClick={() => navigate(`/r/${recipeId}`)}
+          >
+            {title}
+          </h3>
           {/* <button className="w-[30px] h-[30px] flex items-center justify-center bg-page rounded-lg">
             <HugeiconsIcon icon={MoreVerticalIcon} />
           </button> */}
