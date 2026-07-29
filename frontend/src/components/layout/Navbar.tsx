@@ -110,18 +110,20 @@ const Navbar = () => {
           {item.badge !== undefined && <span>{item.badge}</span>}
         </button>
       ))}
-      <a
-        key={`${keyPrefix}-feedback`}
-        type="button"
-        href="https://docs.google.com/forms/d/e/1FAIpQLScUgbZy9BqcN-VD6DgLJdevAB78sqRM54pfsZfsFF9DEgTNhA/viewform?usp=publish-editor"
-        target="_blank"
-        className="w-full flex items-center justify-between gap-[15px] text-left cursor-pointer"
-      >
-        <span className="flex items-center gap-[15px]">
-          <HugeiconsIcon icon={BugIcon} className="w-[22px] md:w-[18px]" />
-          Bugs & Suggestions
-        </span>
-      </a>
+      {(keyPrefix === "settings" || keyPrefix === "guest") && (
+        <a
+          key={`${keyPrefix}-feedback`}
+          type="button"
+          href="https://docs.google.com/forms/d/e/1FAIpQLScUgbZy9BqcN-VD6DgLJdevAB78sqRM54pfsZfsFF9DEgTNhA/viewform?usp=publish-editor"
+          target="_blank"
+          className="w-full flex items-center justify-between gap-[15px] text-left cursor-pointer"
+        >
+          <span className="flex items-center gap-[15px]">
+            <HugeiconsIcon icon={BugIcon} className="w-[22px] md:w-[18px]" />
+            Bugs & Suggestions
+          </span>
+        </a>
+      )}
     </li>
   );
 
