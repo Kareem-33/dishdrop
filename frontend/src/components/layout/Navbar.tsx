@@ -150,9 +150,9 @@ const Navbar = () => {
 
   return (
     <div className="fixed w-full bg-dark-bg border-b border-accent-primary p-5 md:px-[80px] lg:px-[122px] flex justify-between items-center h-[80px] z-[999]">
-      <Link to="/">
+      <a href="/">
         <img src="/logo.svg" alt="Logo" />
-      </Link>
+      </a>
 
       <div className="flex gap-[15px] items-center">
         {!userLogged && (

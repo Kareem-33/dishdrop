@@ -38,10 +38,10 @@ const VideoUrlInput = ({ className = "" }: VideoUrlInputProps) => {
   }, [loading]);
 
   useEffect(() => {
-  if (analyzedId) {
-    navigate(`/r/${analyzedId}`);
-  }
-}, [analyzedId, navigate]);
+    if (analyzedId) {
+      navigate(`/r/${analyzedId}`);
+    }
+  }, [analyzedId, navigate]);
 
   return (
     <div
@@ -83,12 +83,19 @@ const VideoUrlInput = ({ className = "" }: VideoUrlInputProps) => {
       <div className="flex flex-col mt-[10px] gap-1">
         <p className="text-sm opacity-60">Works with:</p>
         <div className="flex items-center gap-1 max-w-full flex-wrap">
-          {platforms.map((platform) => (
+          {import.meta.env.VITE_ENV === "development" ? (
+            platforms.map((platform) => (
+              <SocialMediaBadge
+                name={platform.name}
+                className={platform.className}
+              />
+            ))
+          ) : (
             <SocialMediaBadge
-              name={platform.name}
-              className={platform.className}
+              name={platforms[0].name}
+              className={platforms[0].className}
             />
-          ))}
+          )}
         </div>
       </div>
     </div>
