@@ -188,10 +188,10 @@ export const getSavedRecipes = async (req: ExtendedRequest, res: Response) => {
         sortOption.createdAt = 1;
         break;
       case 'a-z':
-        sortOption["recipe.title"] = -1;
+        sortOption["recipe.title"] = 1;
         break;
       case 'cook-time':
-        sortOption["recipe.estimatedTime"] = -1;
+        sortOption["recipe.estimatedTime"] = 1;
         break;
       default:
         sortOption.createdAt = -1;

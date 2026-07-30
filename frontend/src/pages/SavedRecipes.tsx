@@ -60,7 +60,7 @@ const SavedRecipes = () => {
       sort,
       platform: tag === "all" ? "" : tag,
     });
-  }, [page, limit, search, sort, tag]);
+  }, [searchParams]);
 
   useEffect(() => {
     savedRecipesCount();
@@ -68,9 +68,9 @@ const SavedRecipes = () => {
 
   document.title = `Saved Recipes | DishDrop - Turn Cooking Videos Into Recipes You Can Actually Cook From`;
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+  // if (loading) {
+  //   return <LoadingSpinner />;
+  // }
 
   return (
     <div className="pt-[80px]">
@@ -99,39 +99,45 @@ const SavedRecipes = () => {
           setTag={setTag}
         />
       </div>
-      <div className="px-[20px] py-[40px] md:px-[122px] space-y-[30px]">
-        <p>
-          Showing {page * limit - limit ? page * limit - limit + 1 : 0} -{" "}
-          {page * limit > count ? count : page * limit} of {count} recipes
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[30px]">
-          {recipes?.map((recipe) => (
-            <RecipeCard
-              key={recipe._id}
-              id={recipe._id}
-              recipeId={recipe.recipeId}
-              platform={recipe.recipe.source.platform}
-              imageUrl={recipe.recipe.source.thumbnail}
-              title={recipe.recipe.title}
-              time={recipe.recipe.estimatedTime}
-              servings={recipe.recipe.servings}
-              addDate={recipe.createdAt}
-              onUnsave={() =>
-                fetchSavedRecipes({
-                  page: parseInt(searchParams.get("page") as string) || 1,
-                  limit: parseInt(searchParams.get("limit") as string) || 9,
-                  search: searchParams.get("search") || "",
-                  sort: searchParams.get("sort") || "recent",
-                  platform: searchParams.get("platform") || "",
-                })
-              }
-            />
-          ))}
-        </div>
-      </div>
-      <div className="px-[20px] pb-[40px]">
-        <Paging page={page} totalPages={pages} setPage={setPage} />
-      </div>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <div className="px-[20px] py-[40px] md:px-[122px] space-y-[30px]">
+            <p>
+              Showing {page * limit - limit ? page * limit - limit + 1 : 0} -{" "}
+              {page * limit > count ? count : page * limit} of {count} recipes
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-[30px]">
+              {recipes?.map((recipe) => (
+                <RecipeCard
+                  key={recipe._id}
+                  id={recipe._id}
+                  recipeId={recipe.recipeId}
+                  platform={recipe.recipe.source.platform}
+                  imageUrl={recipe.recipe.source.thumbnail}
+                  title={recipe.recipe.title}
+                  time={recipe.recipe.estimatedTime}
+                  servings={recipe.recipe.servings}
+                  addDate={recipe.createdAt}
+                  onUnsave={() =>
+                    fetchSavedRecipes({
+                      page: parseInt(searchParams.get("page") as string) || 1,
+                      limit: parseInt(searchParams.get("limit") as string) || 9,
+                      search: searchParams.get("search") || "",
+                      sort: searchParams.get("sort") || "recent",
+                      platform: searchParams.get("platform") || "",
+                    })
+                  }
+                />
+              ))}
+            </div>
+          </div>
+          <div className="px-[20px] pb-[40px]">
+            <Paging page={page} totalPages={pages} setPage={setPage} />
+          </div>
+        </>
+      )}
     </div>
   );
 };
