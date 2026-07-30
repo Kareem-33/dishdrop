@@ -16,7 +16,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { useCallback, useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../stores/useAuthStore";
 
 type MenuItem = {
