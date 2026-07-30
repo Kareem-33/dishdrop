@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import SocialMediaBadge from "./SocialMediaBadge";
 import useRecipeStore from "../../stores/useRecipeStore";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export const platforms = [
   { name: "YouTube", icon: "/icons/youtube.svg", className: `bg-[#ff0000]` },
@@ -29,7 +30,13 @@ const VideoUrlInput = ({ className = "" }: VideoUrlInputProps) => {
   const [showLoadingModal, setShowLoadingModal] = useState(false);
 
   const handleGetRecipe = async () => {
-    await analyzeRecipe(videoLink);
+    if (
+      import.meta.env.VITE_ENV === "production" &&
+      !(videoLink.includes("youtube.com") || videoLink.includes("youtu.be"))
+    ) {
+      return toast.error("Please enter a valid YouTube video link.");
+    }
+      await analyzeRecipe(videoLink);
   };
 
   useEffect(() => {
