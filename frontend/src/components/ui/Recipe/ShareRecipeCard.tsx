@@ -20,16 +20,19 @@ const ShareRecipeCard = () => {
       </p>
       <div className="flex items-center gap-0 w-full">
         <div
-          className={`w-full px-3 h-[41px] border border-border-default rounded-md transition-all duration-300
-          focus:outline-none focus:ring-5 focus:ring-accent-primary/15 bg-page/50 rounded-r-none flex-1 flex
+          className={`overflow-hidden px-3 h-[41px] border border-border-default rounded-md transition-all duration-300
+          focus:outline-none focus:ring-5 focus:ring-accent-primary/15 bg-page/50 rounded-r-none flex
           items-center`}
         >
+          <span className="truncate">
+
           {window.location.href}
+          </span>
         </div>
         <Button
           variant="primary"
           size="md"
-          className="h-[41px] flex-shrink-0 rounded-l-none px-[10px]!"
+          className="h-[41px] flex-shrink-0 rounded-l-none px-[10px]! shrink-0"
           onClick={() => {
             navigator.clipboard.writeText(window.location.href);
             toast.success("Copied to clipboard");

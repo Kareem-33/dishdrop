@@ -87,27 +87,24 @@ const Recipe = () => {
     };
   }, [openCollectionModal]);
 
+  const handleShare = useCallback(() => {
+    navigator.clipboard.writeText(window.location.href);
+    toast.success("Link copied to clipboard");
+  }, []);
+
   const handleSaveToggle = useCallback(async () => {
     if (!recipe) return;
     try {
       if (saved) {
         await unsaveRecipe({ recipeId: recipe._id });
-        getRecipe(recipe._id);
-
-        getCollections();
       } else {
         await saveRecipe(recipe._id);
-        getRecipe(recipe._id);
       }
+      await Promise.all([getRecipe(recipe._id), fetchSavedRecipes({})]);
     } catch {
       toast.error(saved ? "Failed to unsave recipe" : "Failed to save recipe");
     }
-  }, [recipe, saved, saveRecipe, unsaveRecipe]);
-
-  const handleShare = useCallback(() => {
-    navigator.clipboard.writeText(window.location.href);
-    toast.success("Link copied to clipboard");
-  }, []);
+  }, [recipe, saved, saveRecipe, unsaveRecipe, getRecipe, fetchSavedRecipes]);
 
   const handleAddToCollection = useCallback(
     async (collectionId: string) => {
@@ -117,16 +114,22 @@ const Recipe = () => {
         await addRecipeToCollection({ recipeId, collectionId });
         if (!saved) {
           await saveRecipe(recipeId);
-          setSaved(true);
         }
-        await getCollections();
+        await Promise.all([getCollections(), fetchSavedRecipes({})]);
       } catch {
         toast.error("Failed to add recipe to collection");
       } finally {
         setAddingCollectionId(null);
       }
     },
-    [recipeId, saved, addRecipeToCollection, saveRecipe],
+    [
+      recipeId,
+      saved,
+      addRecipeToCollection,
+      saveRecipe,
+      getCollections,
+      fetchSavedRecipes,
+    ],
   );
 
   const handleRemoveFromCollection = useCallback(
@@ -142,12 +145,13 @@ const Recipe = () => {
         setAddingCollectionId(null);
       }
     },
-    [recipeId, saved, removeRecipeFromCollection, unsaveRecipe],
+    [recipeId, removeRecipeFromCollection, getCollections],
   );
 
   if (loading) {
-    return <LoadingSpinner />;
+    document.body.style.overflow = "hidden";
   }
+
   if (!recipe) {
     return <NotFound />;
   }
@@ -290,7 +294,7 @@ const Recipe = () => {
               }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-5
-              rounded-md w-[500px] divide-y divide-border-default overflow-auto w-[90%] md:w-[400px]
+              rounded-md w-[90%] lg:w-[500px] md:w-[400px] divide-y divide-border-default overflow-auto w-[90%] 
               max-h-[calc(100vh-125px)]"
             >
               {collections.length > 0 ? (
@@ -353,6 +357,11 @@ const Recipe = () => {
           </div>
         )}
       </AnimatePresence>
+      {loading && (
+        <div className="fixed inset-0 bg-black/15 z-50 flex items-center justify-center">
+          <LoadingSpinner />
+        </div>
+      )}
     </div>
   );
 };

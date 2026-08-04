@@ -249,7 +249,7 @@ const Navbar = () => {
             {renderActionItem(
               "Signup",
               UserAdd01Icon,
-              () => navigateTo("/signup"),
+              () => navigateTo("/register"),
               "primary",
             )}
           </ul>
