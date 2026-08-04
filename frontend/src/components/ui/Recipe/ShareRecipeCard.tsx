@@ -21,7 +21,7 @@ const ShareRecipeCard = () => {
       <div className="flex items-center gap-0 w-full">
         <div
           className={`overflow-hidden px-3 h-[41px] border border-border-default rounded-md transition-all duration-300
-          focus:outline-none focus:ring-5 focus:ring-accent-primary/15 bg-page/50 rounded-r-none flex
+          focus:outline-none focus:ring-5 focus:ring-accent-primary/15 bg-page/50 rounded-r-none flex flex-1 w-full
           items-center`}
         >
           <span className="truncate">
