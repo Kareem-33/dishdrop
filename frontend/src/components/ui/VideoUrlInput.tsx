@@ -91,8 +91,9 @@ const VideoUrlInput = ({ className = "" }: VideoUrlInputProps) => {
         <p className="text-sm opacity-60">Works with:</p>
         <div className="flex items-center gap-1 max-w-full flex-wrap">
           {import.meta.env.VITE_ENV === "development" ? (
-            platforms.map((platform) => (
+            platforms.map((platform, index) => (
               <SocialMediaBadge
+                key={index}
                 name={platform.name}
                 className={platform.className}
               />
